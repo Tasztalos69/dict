@@ -1,19 +1,39 @@
 <script lang="ts">
   import ArrowNarrowRight from "./lib/ArrowNarrowRight.svelte";
+  import { fade } from "svelte/transition";
+  import Dict from "./lib/Dict.svelte";
+
+  let isWelcomePage = false;
 
   const openDict = () => {
-    console.log("hello");
+    isWelcomePage = false;
   };
 </script>
 
-<main>
-  <h1>glossza</h1>
-  <h3>Random szavak gyűjteménye, amik jól hangzanak.</h3>
-  <button on:click={openDict}>A glossza feltárása <ArrowNarrowRight /></button>
-</main>
+<link
+  href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Oswald:wght@500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap"
+  rel="stylesheet"
+/>
+
+{#if isWelcomePage}
+  <div class="opening" out:fade>
+    <h1>glossza</h1>
+    <h3>Random szavak gyűjteménye, amik jól hangzanak.</h3>
+    <button on:click={openDict}>A glossza feltárása <ArrowNarrowRight /></button
+    >
+  </div>
+{/if}
+
+<Dict />
 
 <style global lang="scss">
-  main {
+  * {
+    color: #202020;
+    margin: 0;
+    padding: 0;
+  }
+
+  .opening {
     margin-top: 50vh;
     transform: translateY(-50%);
     position: relative;

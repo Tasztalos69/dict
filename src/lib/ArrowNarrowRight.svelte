@@ -1,7 +1,7 @@
 <script>
-  export let size = 36;
-  export let color = "currentColor";
-  export let strokeWidth = 2;
+  let size = 36;
+  let color = "currentColor";
+  let strokeWidth = 2;
 </script>
 
 <svg

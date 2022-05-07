@@ -8,7 +8,9 @@
   let isWelcomePage: boolean = !!!localStorage.getItem("isOpenerDisabled");
 
   const fetchData = async (): Promise<Entry[]> => {
-    const { data } = await axios.get("http://192.168.0.185:8055/items/words");
+    const { data } = await axios.get(
+      "https://admin.dict.jelszo.co/items/words"
+    );
 
     return data.data;
   };

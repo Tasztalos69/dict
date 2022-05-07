@@ -29,12 +29,16 @@
 <style global lang="scss">
   body {
     background: #eee;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
   }
 
   * {
     color: #202020;
     margin: 0;
     padding: 0;
+    outline: none;
   }
 
   .opening {

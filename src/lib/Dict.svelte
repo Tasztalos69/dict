@@ -4,15 +4,26 @@
   import type { Entry } from "src/types";
   import EntryCard from "./EntryCard.svelte";
   import Check from "./Check.svelte";
+  import { polyfill } from "seamless-scroll-polyfill";
+  polyfill();
+
+  const collator = Intl.Collator("hu-HU");
 
   let isWelcomePage: boolean = !!!localStorage.getItem("isOpenerDisabled");
+
+  let entries: Entry[] = [];
+  let letters: string[] = [];
 
   const fetchData = async (): Promise<Entry[]> => {
     const { data } = await axios.get(
       "https://admin.dict.jelszo.co/items/words"
     );
 
-    return data.data;
+    entries = data.data;
+    const sorted = entries.sort((a, b) => collator.compare(a.word, b.word));
+    letters = [...new Set(sorted.map((w) => w.word[0]))];
+
+    return sorted;
   };
 
   let promise = fetchData();
@@ -26,32 +37,65 @@
       isWelcomePage = false;
     }
   };
+
+  const navToWord = (letter: string) => {
+    const el = document.getElementById(
+      entries.filter((e) => e.word[0].toLowerCase() === letter.toLowerCase())[0]
+        .word
+    );
+    el.classList.add("active");
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => {
+      el.classList.remove("active");
+    }, 3000);
+  };
 </script>
 
 <main in:fade={{ delay: 1000 }}>
   <div class="title">
     <h1>Glossza</h1>
+    <h3>Random szavak gyűjteménye, amik jól hangzanak.</h3>
   </div>
   {#await promise}
     <p>Töltés...</p>
   {:then entries}
+    <ul class="letters-wrapper" in:fade={{ delay: 1500 }}>
+      {#each letters as letter}
+        <li on:click={() => navToWord(letter)}>
+          {letter}
+        </li>
+      {/each}
+    </ul>
     <div class="entries-wrapper">
       {#each entries as entry}
         <EntryCard {entry} />
       {/each}
     </div>
+    <button
+      in:fade={{ delay: 2000 }}
+      class:active={!isWelcomePage}
+      on:click={flipWelcomePage}
+    >
+      Fedlap átugrása {#if !isWelcomePage}<Check />{/if}
+    </button>
+  {:catch}
+    <p class="error">Hálózati hiba!</p>
   {/await}
 </main>
 
-<button
-  in:fade={{ delay: 2000 }}
-  class:active={!isWelcomePage}
-  on:click={flipWelcomePage}
->
-  Fedlap kihagyása {#if !isWelcomePage}<Check />{/if}
-</button>
-
 <style lang="scss">
+  p {
+    margin-top: 60px;
+    font-weight: 600;
+    font-size: 2rem;
+    text-align: center;
+    font-family: "Source sans pro", sans-serif;
+
+    &.error {
+      color: #ad0a2a;
+    }
+  }
+
   h1 {
     text-align: center;
     margin: 0;
@@ -62,6 +106,17 @@
     text-transform: uppercase;
   }
 
+  h3 {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    font-family: "Baskervville", serif;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: #555;
+  }
+
   .entries-wrapper {
     max-width: clamp(400px, 40vw, 600px);
     position: relative;
@@ -69,8 +124,34 @@
     padding-top: 50px;
   }
 
+  .letters-wrapper {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    list-style: none;
+
+    li {
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.06s all ease-in-out;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.4);
+      }
+
+      font-family: "Oswald", sans-serif;
+      text-transform: uppercase;
+      font-size: 1.3rem;
+    }
+  }
+
   button {
-    position: absolute;
+    position: fixed;
     bottom: 15px;
     left: 15px;
     display: flex;

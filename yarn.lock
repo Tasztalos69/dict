@@ -651,6 +651,11 @@ sass@^1.51.0:
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
 
+seamless-scroll-polyfill@^2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/seamless-scroll-polyfill/-/seamless-scroll-polyfill-2.1.8.tgz#357b478b54a093e03581dcc9c0a86eae4b00eee2"
+  integrity sha512-cF92Op90//vEpHphRx25rttJGXIgxcTB1WR5y0ODQhN7O4d0lSEOp5+l3sQDx0aAZ2MfXCqFEb/rG/3ghvVDIQ==
+
 sorcery@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/sorcery/-/sorcery-0.10.0.tgz#8ae90ad7d7cb05fc59f1ab0c637845d5c15a52b7"

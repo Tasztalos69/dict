@@ -3,7 +3,7 @@
   import { fade } from "svelte/transition";
   import Dict from "./lib/Dict.svelte";
 
-  let isWelcomePage = true;
+  let isWelcomePage: boolean = !!!localStorage.getItem("isOpenerDisabled");
 
   const openDict = () => {
     isWelcomePage = false;
@@ -16,16 +16,14 @@
 />
 
 {#if isWelcomePage}
-  <div class="opening" out:fade={{ duration: 1000 }}>
+  <div class="opening" out:fade={{ duration: 500 }}>
     <h1>glossza</h1>
     <h3>Random szavak gyűjteménye, amik jól hangzanak.</h3>
     <button on:click={openDict}>A glossza feltárása <ArrowNarrowRight /></button
     >
   </div>
 {:else}
-  <div in:fade={{ duration: 1000 }}>
-    <Dict />
-  </div>
+  <Dict />
 {/if}
 
 <style global lang="scss">

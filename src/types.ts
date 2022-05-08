@@ -3,7 +3,13 @@ export interface Entry {
   word: string;
   definition: string;
   type: EntryType;
-  synonyms: string[];
+  synonyms: number[];
+}
+
+export interface Relation {
+  id: number;
+  words_id: string;
+  related_words_id: string;
 }
 
 export enum EntryType {

@@ -2,12 +2,22 @@
   import type { Entry } from "src/types";
 
   export let entry: Entry;
+  export let synonyms: string[] = [];
+  export let navToWord: ([string]: any) => any;
   export let active: boolean = false;
 </script>
 
 <div class="entry" class:active id={entry.word}>
   <h3>{entry.word} <span>({entry.type})</span></h3>
   <p>{entry.definition}</p>
+  {#if synonyms.length > 0}
+    <p class="synonyms">
+      lásd:
+      {#each synonyms as s}
+        <button on:click={() => navToWord(s)}>{s}</button>
+      {/each}
+    </p>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -38,6 +48,7 @@
       text-transform: capitalize;
 
       span {
+        font-family: inherit;
         font-weight: 400;
         text-transform: lowercase;
       }
@@ -46,6 +57,21 @@
     p {
       font-size: 1.2rem;
       margin-top: 10px;
+
+      &.synonyms {
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      color: #065fd4;
+      font-size: inherit;
+      text-transform: capitalize;
     }
   }
 

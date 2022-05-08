@@ -1,29 +1,33 @@
 <script lang="ts">
   import axios from "axios";
   import { fade } from "svelte/transition";
-  import type { Entry } from "src/types";
+  import type { Entry, Relation } from "src/types";
   import EntryCard from "./EntryCard.svelte";
   import Check from "./Check.svelte";
   import { polyfill } from "seamless-scroll-polyfill";
   polyfill();
 
-  const collator = Intl.Collator("hu-HU");
-
   let isWelcomePage: boolean = !!!localStorage.getItem("isOpenerDisabled");
 
   let entries: Entry[] = [];
+  let relations: Relation[] = [];
   let letters: string[] = [];
 
   const fetchData = async (): Promise<Entry[]> => {
-    const { data } = await axios.get(
-      "https://admin.dict.jelszo.co/items/words"
-    );
+    const {
+      data: { data: entriesResponse },
+    } = await axios.get("https://admin.dict.jelszo.co/items/words?sort[]=word");
 
-    entries = data.data;
-    const sorted = entries.sort((a, b) => collator.compare(a.word, b.word));
-    letters = [...new Set(sorted.map((w) => w.word[0]))];
+    const {
+      data: { data: relationsResponse },
+    } = await axios.get("https://admin.dict.jelszo.co/items/words_words");
 
-    return sorted;
+    entries = entriesResponse;
+    relations = relationsResponse;
+
+    letters = [...new Set(entries.map((w) => w.word[0]))];
+
+    return entries;
   };
 
   let promise = fetchData();
@@ -38,11 +42,16 @@
     }
   };
 
-  const navToWord = (letter: string) => {
-    const el = document.getElementById(
-      entries.filter((e) => e.word[0].toLowerCase() === letter.toLowerCase())[0]
-        .word
-    );
+  const navToWord = (str: string) => {
+    let el: HTMLElement;
+    if (str.length > 1) {
+      el = document.getElementById(str);
+    } else {
+      el = document.getElementById(
+        entries.filter((e) => e.word[0].toLowerCase() === str.toLowerCase())[0]
+          .word
+      );
+    }
     el.classList.add("active");
     el.scrollIntoView({ behavior: "smooth", block: "center" });
     setTimeout(() => {
@@ -68,7 +77,18 @@
     </ul>
     <div class="entries-wrapper">
       {#each entries as entry}
-        <EntryCard {entry} />
+        <EntryCard
+          {entry}
+          synonyms={entry.synonyms.map(
+            (s) =>
+              entries.filter(
+                (e) =>
+                  e.id ===
+                  relations.filter((r) => r.id === s)[0].related_words_id
+              )[0].word
+          )}
+          {navToWord}
+        />
       {/each}
     </div>
     <button

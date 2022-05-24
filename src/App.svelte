@@ -67,6 +67,7 @@
       font-style: italic;
       letter-spacing: 1px;
       color: #555;
+      padding: 0 20px;
     }
 
     button {

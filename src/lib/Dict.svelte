@@ -142,6 +142,10 @@
     position: relative;
     margin: auto;
     padding-top: 50px;
+
+    @media screen and (max-width: 600px) {
+      max-width: 90vw;
+    }
   }
 
   .letters-wrapper {
@@ -150,6 +154,10 @@
     top: 50%;
     transform: translateY(-50%);
     list-style: none;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
 
     li {
       height: 2rem;
@@ -186,6 +194,10 @@
     opacity: 0.4;
     transition: 0.4s all ease-in-out;
     cursor: pointer;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
 
     &.active {
       opacity: 1;

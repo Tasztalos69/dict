@@ -16,11 +16,13 @@
   const fetchData = async (): Promise<Entry[]> => {
     const {
       data: { data: entriesResponse },
-    } = await axios.get("https://admin.dict.jelszo.co/items/words?sort[]=word");
+    } = await axios.get(
+      "https://admin.dict.wanter.dev/items/words?sort[]=word"
+    );
 
     const {
       data: { data: relationsResponse },
-    } = await axios.get("https://admin.dict.jelszo.co/items/words_words");
+    } = await axios.get("https://admin.dict.wanter.dev/items/words_words");
 
     entries = entriesResponse;
     relations = relationsResponse;

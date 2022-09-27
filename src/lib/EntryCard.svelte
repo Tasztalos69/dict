@@ -72,6 +72,11 @@
       color: #065fd4;
       font-size: inherit;
       text-transform: capitalize;
+      margin: 0 5px;
+
+      &:first-of-type {
+        margin-left: 0;
+      }
     }
   }
 

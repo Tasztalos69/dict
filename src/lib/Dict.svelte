@@ -27,7 +27,7 @@
     entries = entriesResponse;
     relations = relationsResponse;
 
-    letters = [...new Set(entries.map((w) => w.word[0]))];
+    letters = [...new Set(entries.map((w) => w.word[0].toLowerCase()))];
 
     return entries;
   };

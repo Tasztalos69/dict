@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.1.1",
   "type": "module",
+  "packageManager": "yarn@4.1.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,17 +11,17 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
-    "@tsconfig/svelte": "^2.0.1",
-    "sass": "^1.51.0",
-    "svelte": "^3.44.0",
-    "svelte-check": "^2.2.7",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.4",
-    "vite": "^2.9.7"
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
+    "@tsconfig/svelte": "^5.0.4",
+    "sass": "^1.75.0",
+    "svelte": "^4.2.15",
+    "svelte-check": "^3.6.9",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "seamless-scroll-polyfill": "^2.1.8"
+    "axios": "^1.6.8",
+    "seamless-scroll-polyfill": "^2.3.4"
   }
 }

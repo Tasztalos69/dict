@@ -3,7 +3,7 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { drizzle } from "drizzle-orm/bun-sqlite";
 
-const path = process.env.DATABASE_PATH ?? "data/dict.db";
+export const path = process.env.DATABASE_PATH ?? "data/dict.db";
 mkdirSync(dirname(path), { recursive: true });
 
 const sqlite = new Database(path, { create: true });

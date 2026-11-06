@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -14,7 +15,12 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     tanstackStart(),
-    nitro({ preset: "bun" }),
+    nitro({
+      preset: "bun",
+      experimental: { tasks: true },
+      tasks: { "db:backup": { handler: resolve("src/tasks/backup.ts") } },
+      scheduledTasks: { "0 3 * * *": "db:backup" },
+    }),
     // react's vite plugin must come after start's vite plugin
     viteReact(),
   ],

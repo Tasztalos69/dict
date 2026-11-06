@@ -16,7 +16,16 @@ export const Route = createRootRoute({
         title: "Glossza",
       },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "icon", href: "/favicon.ico" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Oswald:wght@500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap",
+      },
+      { rel: "stylesheet", href: appCss },
+    ],
   }),
   component: RootComponent,
 });

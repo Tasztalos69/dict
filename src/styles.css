@@ -1,1 +1,76 @@
 @import "tailwindcss";
+
+/* Matches the old max-width: 600px query, which unlike max-[600px] includes 600px itself. */
+@custom-variant narrow (@media screen and (max-width: 600px));
+/* The old hover styles also applied on touch devices. */
+@custom-variant hover (&:hover);
+
+@theme {
+  --font-serif: "Baskervville", serif;
+  --font-sans: "Source Sans Pro", sans-serif;
+  --font-display: "Oswald", sans-serif;
+
+  --color-page: #eee;
+  --color-ink: #202020;
+  --color-muted: #555;
+  --color-error: #ad0a2a;
+  --color-link: #065fd4;
+
+  --ease-in-out: ease-in-out;
+
+  --shadow-entry: 0 0 20px 1px rgb(32 32 32 / 0.3);
+  --shadow-entry-off: 0 0 20px 3px rgb(32 32 32 / 0);
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes draw-in {
+    from {
+      stroke-dashoffset: 22;
+    }
+  }
+
+  @keyframes draw-out {
+    to {
+      stroke-dashoffset: 22;
+    }
+  }
+
+  @keyframes box-out {
+    0%,
+    50% {
+      box-shadow: var(--shadow-entry);
+    }
+    100% {
+      box-shadow: 0 0 20px 1px rgb(32 32 32 / 0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    line-height: normal;
+  }
+
+  * {
+    @apply font-serif text-ink outline-none;
+  }
+
+  /* Invisible in mouse use, keeps keyboard focus visible now that outlines are off. */
+  :focus-visible {
+    outline: 2px solid currentColor;
+  }
+
+  body {
+    @apply bg-page select-none;
+  }
+}

@@ -6,6 +6,6 @@
     "target": "ES2022",
     "skipLibCheck": true,
     "strictNullChecks": true,
-    "types": ["vite/client", "node"]
+    "types": ["vite/client", "node", "bun"]
   }
 }

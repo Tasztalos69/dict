@@ -26,3 +26,6 @@ dist-ssr
 
 # Recovered Directus data (contains user tables and password hashes)
 datadirs
+
+# Local SQLite database
+data

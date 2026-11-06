@@ -26,3 +26,12 @@ datadirs
 
 # Local SQLite database
 data
+
+# Not needed in the image
+.git
+.github
+dist
+compose*.yaml
+Dockerfile
+.output
+.env

@@ -1,9 +1,14 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { readBranding } from "../branding";
 import appCss from "../styles.css?url";
 
+const getBranding = createServerFn({ method: "GET" }).handler(() => readBranding(process.env));
+
 export const Route = createRootRoute({
-  head: () => ({
+  loader: () => getBranding(),
+  head: ({ loaderData }) => ({
     meta: [
       {
         charSet: "utf-8",
@@ -13,7 +18,7 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "Glossza",
+        title: loaderData?.title,
       },
     ],
     links: [
@@ -39,8 +44,10 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  const { colors } = Route.useLoaderData();
+
   return (
-    <html lang="hu">
+    <html lang="hu" style={colors as CSSProperties}>
       <head>
         <HeadContent />
       </head>

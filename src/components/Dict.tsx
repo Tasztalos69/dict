@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { useLoaderData } from "@tanstack/react-router";
 import { OPENER_DISABLED_KEY, type Entry } from "../entries";
 import Check from "./Check";
 import EntryCard from "./EntryCard";
 import { uniq } from "lodash";
 
 export function DictTitle() {
+  const { title, tagline } = useLoaderData({ from: "__root__" });
+
   return (
     <div>
-      <h1 className="mt-15 text-center font-display text-[3em] font-semibold uppercase">Glossza</h1>
+      <h1 className="mt-15 text-center font-display text-[3em] font-semibold uppercase">{title}</h1>
       <h3 className="mt-5 text-center font-serif text-[1.1rem] font-semibold tracking-[1px] text-muted italic">
-        Random szavak gyűjteménye, amik jól hangzanak.
+        {tagline}
       </h3>
     </div>
   );

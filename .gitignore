@@ -29,3 +29,13 @@ datadirs
 
 # Local SQLite database
 data
+
+# Local deployment config
+compose.yaml
+gateway.env
+
+# Nitro build output
+.output
+
+# Local environment
+.env

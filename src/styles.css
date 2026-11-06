@@ -18,8 +18,8 @@
 
   --ease-in-out: ease-in-out;
 
-  --shadow-entry: 0 0 20px 1px rgb(32 32 32 / 0.3);
-  --shadow-entry-off: 0 0 20px 3px rgb(32 32 32 / 0);
+  --shadow-entry: 0 0 20px 1px color-mix(in srgb, var(--color-ink) 30%, transparent);
+  --shadow-entry-off: 0 0 20px 3px transparent;
 
   @keyframes fade-in {
     from {
@@ -51,7 +51,7 @@
       box-shadow: var(--shadow-entry);
     }
     100% {
-      box-shadow: 0 0 20px 1px rgb(32 32 32 / 0);
+      box-shadow: 0 0 20px 1px transparent;
     }
   }
 }

@@ -1,27 +1,35 @@
 {
   "name": "dict",
-  "private": true,
   "version": "1.1.1",
+  "private": true,
   "type": "module",
-  "packageManager": "yarn@4.1.1",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite dev",
     "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
-  },
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^3.1.0",
-    "@tsconfig/svelte": "^5.0.4",
-    "sass": "^1.75.0",
-    "svelte": "^4.2.15",
-    "svelte-check": "^3.6.9",
-    "tslib": "^2.6.2",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.10"
+    "check": "tsc --noEmit",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
   },
   "dependencies": {
-    "axios": "^1.6.8",
-    "seamless-scroll-polyfill": "^2.3.4"
-  }
+    "@tanstack/react-router": "^1.170.46",
+    "@tanstack/react-start": "^1.169.4",
+    "drizzle-orm": "^0.45.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.4",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.2.1",
+    "drizzle-kit": "^0.31.11",
+    "oxfmt": "^0.76.0",
+    "oxlint": "^1.91.0",
+    "tailwindcss": "^4.3.4",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6"
+  },
+  "packageManager": "bun@1.4.2"
 }
